@@ -25,10 +25,11 @@ async function fetchFromUrls(urls) {
       console.log(typeof data, ' :data');
       const hrefs = [...new Set(data.match(/href="([^\'\"]+)/g))];
       const images = data.match(/<img .*?>/g);
+      const now = new Date();
       console.log(`site: ${urlName}`);
       console.log(`num_links: ${hrefs.length}`);
-      console.log(`images: `, images.length);
-      console.log()
+      console.log(`images: ${images.length}`);
+      console.log(`last_fetch: ${now.toUTCString()}`)
       console.log("Success created: ", fileName);
       console.log('-----------------------------');
     } catch (error) {
