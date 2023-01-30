@@ -8,16 +8,29 @@ if (!args.length) {
 }
 
 async function fetchFromUrls(urls) {
-  console.log(urls, ' :urls');
   for (const url of urls) {
-    console.log(url, ' :argargarg');
     try {
       const { data } = await axios.get(url);
       const urlSplit = url.split('//');
       const urlName = urlSplit.length > 1 ? urlSplit[1] : urlSplit[0];
+      const dirname = './files';
       const fileName = `${urlName}.html`;
-      fs.writeFileSync(fileName, data);
+      const fileLocation = `${dirname}/${fileName}`;
+
+      if (!fs.existsSync(dirname)) {
+        fs.mkdirSync(dirname)
+      }
+
+      fs.writeFileSync(fileLocation, data);
+      console.log(typeof data, ' :data');
+      const hrefs = [...new Set(data.match(/href="([^\'\"]+)/g))];
+      const images = data.match(/<img .*?>/g);
+      console.log(`site: ${urlName}`);
+      console.log(`num_links: ${hrefs.length}`);
+      console.log(`images: `, images.length);
+      console.log()
       console.log("Success created: ", fileName);
+      console.log('-----------------------------');
     } catch (error) {
       console.log(error);
     }
