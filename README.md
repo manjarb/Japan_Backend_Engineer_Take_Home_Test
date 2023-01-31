@@ -15,7 +15,7 @@ This script to download webpage and asset locally
 Below command will download webpage into `files` folder and assets into `files_assets` folder.
 You can add as many url that you need.
 ```
-$ node ./fetch.js https://www.google.com https://autify.com
+$ node ./fetch.js https://www.google.com https://yahoo.com
 ```
 
 ### Future improvement
